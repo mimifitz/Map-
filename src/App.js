@@ -7,7 +7,7 @@ import "./App.css";
     constructor() {
       super();
       this.state = {
-        markers: [[41.4111227, 2.1548569]]
+        markers: []
       };
     }
 
