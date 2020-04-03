@@ -1,60 +1,43 @@
 import React from "react";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
-import * as parkData from "./data/skateboard-parks.json";
 import "./App.css";
 
-export const icon = new Icon({
-  iconUrl: "/skateboarding.svg",
-  iconSize: [25, 25]
-});
+  class App extends React.Component {
+    constructor() {
+      super();
+      this.state = {
+        markers: [[41.4111227, 2.1548569]]
+      };
+    }
 
-export default function App() {
-  const [activePark, setActivePark] = React.useState(null);
-
-
-
+    addMarker = (e) => {
+      const {markers} = this.state
+      markers.push(e.latlng)
+      this.setState({markers})
+    }  
+    
   
+  render() {
+
   return (
     <div className="App mt-3">
 
       <h1 className="mytitle">My Pretty Map</h1>
-      <Map center={[45.4, -75.7]} zoom={12}>
+      <Map center={[41.38879, 2.15899]}
+        onClick={this.addMarker}
+      zoom={15}
+      >
         <TileLayer
           url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
-          
           attribution='&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-
-        {parkData.features.map(park => (
-          <Marker
-            key={park.properties.PARK_ID}
-            position={[
-              park.geometry.coordinates[1],
-              park.geometry.coordinates[0]
-            ]}
-            onClick={() => {
-              setActivePark(park);
-            }}
-            icon={icon}
-          />
-        ))}
-
-        {activePark && (
-          <Popup
-            position={[
-              activePark.geometry.coordinates[1],
-              activePark.geometry.coordinates[0]
-            ]}
-            onClose={() => {
-              setActivePark(null);
-            }}
-          >
-            <div>
-              <h2>{activePark.properties.NAME}</h2>
-              <p>{activePark.properties.DESCRIPTIO}</p>
-            </div>
-          </Popup>
+          {this.state.markers.map((position, idx) => 
+          <Marker key={`marker-${idx}`} position={position}>
+            <Popup>
+              <span>Hello World!</span>
+            </Popup>
+          </Marker>
         )}
       </Map>
 
@@ -63,3 +46,7 @@ export default function App() {
     </div>
   );
 }
+
+  }
+
+export default App;
