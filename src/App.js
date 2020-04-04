@@ -3,7 +3,8 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import "./App.css";
 
-// {"lat": 41.38658717375506, "lng": 2.156753540039063}
+//BCN {"lat": 41.38658717375506, "lng": 2.156753540039063}
+//NY {"lat": 40.730610, "lng": -73.935242}
 
   class App extends React.Component {
     constructor() {
@@ -14,6 +15,7 @@ import "./App.css";
       };
     }
 
+    // Add a marker to the map, by clicking on it
     addMarker = (e) => {
       const {markers} = this.state
       markers.push(e.latlng)
@@ -28,17 +30,15 @@ import "./App.css";
     }
 
 
+    // Adds marker to map and flies to it with an animation
     addLocation =() =>{
-      //console.log(this.state.input);
-      //const coords = this.state.input.split(",");
-      //console.log("Lat: " + parseFloat(coords[0]));
-      //console.log("Lat: " + parseFloat(coords[1]));
       const latlng = JSON.parse(this.state.input);
-      console.log(latlng);
       const {markers} = this.state
       markers.push(latlng)
       console.log(latlng);
       this.setState({markers})
+      let mapInst =  this.refs.map.leafletElement;
+      mapInst.flyTo(latlng, 12);
     }
   
   render() {
@@ -47,7 +47,7 @@ import "./App.css";
     <div className="App mt-3">
 
       <h1 className="mytitle">My Pretty Map</h1>
-      <Map center={[41.38879, 2.15899]}
+      <Map ref='map' center={[41.38879, 2.15899]}
         onClick={this.addMarker}
       zoom={15}
       >
@@ -58,7 +58,7 @@ import "./App.css";
           {this.state.markers.map((position, idx) => 
           <Marker key={`marker-${idx}`} position={position}>
             <Popup>
-              <span>Hello World!</span>
+          <span>Hello world!</span>
             </Popup>
           </Marker>
         )}
