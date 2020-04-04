@@ -3,20 +3,43 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import "./App.css";
 
+// {"lat": 41.38658717375506, "lng": 2.156753540039063}
+
   class App extends React.Component {
     constructor() {
       super();
       this.state = {
-        markers: []
+        markers: [],
+        input: {}
       };
     }
 
     addMarker = (e) => {
       const {markers} = this.state
       markers.push(e.latlng)
+      console.log(e.latlng);
       this.setState({markers})
     }  
     
+    updateInput(e) {
+      this.setState({
+        input: e.target.value
+      });
+    }
+
+
+    addLocation =() =>{
+      //console.log(this.state.input);
+      //const coords = this.state.input.split(",");
+      //console.log("Lat: " + parseFloat(coords[0]));
+      //console.log("Lat: " + parseFloat(coords[1]));
+      const latlng = JSON.parse(this.state.input);
+      console.log(latlng);
+      const {markers} = this.state
+      markers.push(latlng)
+      console.log(latlng);
+      this.setState({markers})
+    }
   
   render() {
 
@@ -40,8 +63,23 @@ import "./App.css";
           </Marker>
         )}
       </Map>
+      <br></br>
+      <div className="container">
+      <div className="form-inline mb-3">
+          <input
+            className="form-control flex-primary-1"
+            onChange={e => this.updateInput(e)}
+            value={this.state.input}
+          />
 
-
+          <button
+            className="btn btn-primary ml-2"
+            onClick={e => this.addLocation()}
+          >
+            Submit your location
+          </button>
+        </div>
+        </div>
 
     </div>
   );
