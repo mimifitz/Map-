@@ -1,6 +1,6 @@
 import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import { Icon } from "leaflet";
+//import { Icon } from "leaflet";
 import "./App.css";
 
 //BCN {"lat": 41.38658717375506, "lng": 2.156753540039063}
