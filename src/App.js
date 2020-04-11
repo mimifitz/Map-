@@ -35,7 +35,6 @@ const OCD_API_KEY = process.env.REACT_APP_OCD_API_KEY;
 
     // Adds marker to map and flies to it with an animation
     addLocation =() =>{
-      //const latlng = JSON.parse(this.state.input);
       opencage
         .geocode({ q: this.state.input, key: OCD_API_KEY})
         .then(data => {
@@ -71,7 +70,7 @@ const OCD_API_KEY = process.env.REACT_APP_OCD_API_KEY;
       zoom={15}
       >
         <TileLayer
-          url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}{r}.png"
+          url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
           attribution='&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
           {this.state.markers.map((position, idx) => 
