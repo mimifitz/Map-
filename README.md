@@ -10,7 +10,16 @@ Please take some time to get familiar with the react-leaflet library, and with L
 
 On the github repository of the project, you will find a folder with [examples](https://github.com/PaulLeCam/react-leaflet/tree/c13eeadddd06902c34988493ec1d84616a27d486/example)
 
+To support geocoding, the [open cage API client](https://www.npmjs.com/package/opencage-api-client) is used. [OpenCage](https://opencagedata.com/) is an easy, open, worldwide, affordable API to convert coordinates to and from places. Take some time to read the OpenCage [FAQ](https://opencagedata.com/faq). In order to use OpenCage, you will need to sign up for an API key.
+
 ## INSTALL
+
+First [sign up](https://opencagedata.com/users/sign_up) to get a free API key from OpenCage.
+Then create a .env file on the root folder of this project, with the following content:
+
+``` bash
+REACT_APP_OCD_API_KEY=[Your-api-key]
+```
 
 Run this application with yarn:
 
@@ -37,18 +46,12 @@ You can view the deployed application on:
 
 - https://leaflet-react.herokuapp.com/
 
-![](leaflet-react.png)
+![](marianella.png)
 
 ## Use
 
-You can use this application to add points to the map. The application will read the latitude and longitude from a JSON object, and display a marker with the point on the map. 
+You can use this application to add points to the map. The application will read any address, city or postcode as a string, and display it as a marker on the map. 
 
-For example, this is a string which represents the coordinates of NYC:
-
-``` bash
-{"lat": 40.730610, "lng": -73.935242}
-```
-
-To try it out, input this string into the input box. The map bounds will be adjusted to display this point, using a flying animation. You can try it with the coordinates of any other location (in WGS84) in the earth's surface.
+To try it out, input any address into the input box. The map bounds will be adjusted to display this point, using a flying animation. You can try it with the coordinates of any other location (in WGS84) in the earth's surface.
 
 You can also use this application to add markers to the map, just by clicking in the map's surface.
