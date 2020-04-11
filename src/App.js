@@ -2,16 +2,19 @@ import React from "react";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 //import { Icon } from "leaflet";
 import "./App.css";
+const opencage = require('opencage-api-client');
 
 //BCN {"lat": 41.38658717375506, "lng": 2.156753540039063}
 //NY {"lat": 40.730610, "lng": -73.935242}
 
+const OCD_API_KEY = process.env.REACT_APP_OCD_API_KEY; 
+
   class App extends React.Component {
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
         markers: [],
-        input: {}
+        input: ""
       };
     }
 
@@ -32,14 +35,30 @@ import "./App.css";
 
     // Adds marker to map and flies to it with an animation
     addLocation =() =>{
-      const latlng = JSON.parse(this.state.input);
-      const {markers} = this.state
-      markers.push(latlng)
-      console.log(latlng);
-      this.setState({markers})
-      let mapInst =  this.refs.map.leafletElement;
-      mapInst.flyTo(latlng, 12);
+      //const latlng = JSON.parse(this.state.input);
+      opencage
+        .geocode({ q: this.state.input, key: OCD_API_KEY})
+        .then(data => {
+          // Found at least one result
+          if (data.results.length > 0){
+              console.log("Found: " + data.results[0].formatted);
+              const latlng = data.results[0].geometry;
+              const {markers} = this.state
+              markers.push(latlng)
+              console.log(latlng);
+              this.setState({markers})
+              let mapInst =  this.refs.map.leafletElement;
+              mapInst.flyTo(latlng, 12);
+          } else alert("No results found!!");
+
+        })
+        .catch(error => {
+          console.log('error', error.message);
+        });
+
+
     }
+
   
   render() {
 
@@ -52,7 +71,7 @@ import "./App.css";
       zoom={15}
       >
         <TileLayer
-          url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
+          url="https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}{r}.png"
           attribution='&copy; Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
           {this.state.markers.map((position, idx) => 
