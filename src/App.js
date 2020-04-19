@@ -95,7 +95,7 @@ class App extends React.Component {
               className="btn btn-primary ml-2"
               onClick={e => this.addLocation()}
             >
-              Submit your location
+              Your destination pls.
           </button>
           </div>
         </div>
