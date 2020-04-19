@@ -1,9 +1,14 @@
 .leaflet-container {
-  width: 100%;
+  width: 50%;
   height: 50vh;
+  mask-position: center;
 }
 
 .mytitle
-{ 
-  text-align: center
+{
+  text-align: left;
  }
+ body{
+   background-color: rgb(143, 36, 143);
+ }
+

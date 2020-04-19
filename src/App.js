@@ -68,7 +68,7 @@ class App extends React.Component {
         <h1 className="mytitle">Travel on a map</h1>
         <Map ref='map' center={[41.38879, 2.15899]}
           onClick={this.addMarker}
-          zoom={15}
+          zoom={10}
         >
           <TileLayer
             url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png"
